@@ -55,4 +55,9 @@ $sql = "INSERT INTO `moves` (`id`, `name`, `type`, `category`, `power`, `accurac
 
 $conn->query($sql);
 
+$sql = "INSERT INTO `stats` (`id`, `name`, `type`, `hp`, `att`, `spatt`, `def`, `spdef`, `spd`) VALUES
+(1, 'Pikachu', 'Electric', 35, 55, 40, 50, 50, 90);";
+
+$conn->query($sql);
+
 ?>
