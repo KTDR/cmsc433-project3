@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Get information from database</title>
+</head>
+<body>
+  <form>
+Enter id: <input type = "submit" id = "pokeid" value = "submit">
+</form>
+<script>
+    var myRequest = new XMLHttpRequest();
+    var method = "POST";
+    var url = "getdata.php"
+    var id= 4;
+    var isAsync = true
+
+    myRequest.open(method, url, isAsync);
+
+    myRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    myRequest.send("id=" + id);
+
+    myRequest.onreadystatechange = function() 
+{
+    if (myRequest.readyState == 4 && myRequest.status == 200)
+    {
+        var response = JSON.parse(myRequest.responseText);
+        console.log(response[0].name);
+        
+        
+    }
+
+}
+</script>
+</body>
+</html>
