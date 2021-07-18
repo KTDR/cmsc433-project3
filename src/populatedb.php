@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 // Create the tables
 $sql = "CREATE TABLE `moves` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` text NOT NULL,
+    `name` text NOT NULL UNIQUE,
     `type` text NOT NULL,
     `category` text NOT NULL,
     `power` int(11) NOT NULL,
@@ -33,7 +33,7 @@ $conn->query($sql);
 
 $sql = "CREATE TABLE `stats` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` text NOT NULL,
+    `name` text NOT NULL UNIQUE,
     `type` text NOT NULL,
     `hp` int(11) NOT NULL,
     `att` int(11) NOT NULL,
@@ -47,7 +47,7 @@ $conn->query($sql);
 
 $sql = "CREATE TABLE `movesets` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `Name` text NOT NULL,
+  `Name` text NOT NULL UNIQUE,
   `Move1` int(11) NOT NULL,
   `Move2` int(11) NOT NULL,
   `Move3` int(11) NOT NULL,
@@ -110,7 +110,7 @@ rebuildPokedex();
 //Takes data from the .csv and places it in the pokedex table, which serves as storage for all base pokemon stats
 function rebuildPokedex() {
   $sql = "CREATE TABLE `pokedex` (
-    `id` int(3) UNIQUE NOT NULL,
+    `id` int(3) UNIQUE NOT NULL PRIMARY KEY,
     `name` text NOT NULL,
     `type1` text NOT NULL,
     `type2` text NOT NULL,
@@ -146,7 +146,7 @@ function rebuildPokedex() {
 
     //fixing certain values
     $legendary === "FALSE" ? $legendary = 0 : $legendary = 1; 
-    echo "legendary      " . $legendary;
+    // echo "legendary      " . $legendary;
 
     $sql = "INSERT INTO `pokedex` (`id`, `name`, `type1`, `type2`, `total`, `hp`, `att`, `def`, `spatt`, `spdef`, `speed`, `generation`, `legendary`) VALUES
     ($id, '$name', '$type1', '$type2', $total, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $generation, $legendary);";
