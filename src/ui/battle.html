@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .arena{
+                background-image: url("wild_background.png");
+                background-repeat: no-repeat;  
+                background-size: cover;
+                width: 60vw;
+                height: 60vh;
+                margin: auto;
+            }
+            .menu{
+                width: 60vw;
+                height: 30vh;
+                margin: auto;
+                text-align: center;
+            }
+            .button {
+                display: inline-block;
+                border-radius: 20px;
+                background-color: whitesmoke;
+                color: black;
+                text-align: center;
+                width: 250px;
+                padding: 40px;
+                transition: all 0.1s;
+                margin: 5px;
+                font-size: 2rem;
+            }
+            .button:hover {
+                background-color: lightgrey;
+            }
+            #title{
+                text-align: center;
+            }
+        </style>
+        <script src = "battle.js"></script>
+    </head>
+    <body style = "background-color: #eaf6f6;">
+        <h1 id = "title">Wild Pokemon Battle</h1>
+        <div class = "arena">
+        </div>
+        <div class = "menu" id = "menu">
+            <button class = "button">Fight</button>
+            <button class = "button" onclick="escape()">Run</button>
+        </div>
+    </body>
+</html>
