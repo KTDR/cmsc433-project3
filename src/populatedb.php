@@ -106,4 +106,56 @@ $sql = "INSERT INTO `movesets` (`name`, `Move1`, `Move2`, `Move3`, `Move4`, `Mov
 
 $conn->query($sql);
 
+rebuildPokedex();
+//Takes data from the .csv and places it in the pokedex table, which serves as storage for all base pokemon stats
+function rebuildPokedex() {
+  $sql = "CREATE TABLE `pokedex` (
+    `id` int(3) UNIQUE NOT NULL,
+    `name` text NOT NULL,
+    `type1` text NOT NULL,
+    `type2` text NOT NULL,
+    `total` int(4) NOT NULL,  
+    `hp` int(3) NOT NULL,
+    `att` int(3) NOT NULL,
+    `def` int(3) NOT NULL,
+    `spatt` int(3) NOT NULL,
+    `spdef` int(3) NOT NULL,
+    `speed` int(3) NOT NULL,
+    `generation` int(1) NOT NULL,
+    `legendary` int(1) NOT NULL
+  )";
+  global $conn; //Getting the connection variable from the global scope
+  $conn->query($sql); //execute create table SQL 
+  
+  $file = fopen("../assets/pokemon_data.csv", "r");
+  fgetcsv($file); //discard the first row since it's just the field names
+  while (($data = fgetcsv($file)) !== FALSE) {
+    $id = $data[0];
+    $name = $data[1];
+    $type1 = $data[2];
+    $type2 = $data[3];
+    $total = $data[4];
+    $hp = $data[5];
+    $attack = $data[6];
+    $defense = $data[7];
+    $sp_attack = $data[8];
+    $sp_defense = $data[9];
+    $speed = $data[10];
+    $generation = $data[11];
+    $legendary = $data[12];
+
+    //fixing certain values
+    $legendary === "FALSE" ? $legendary = 0 : $legendary = 1; 
+    echo "legendary      " . $legendary;
+
+    $sql = "INSERT INTO `pokedex` (`id`, `name`, `type1`, `type2`, `total`, `hp`, `att`, `def`, `spatt`, `spdef`, `speed`, `generation`, `legendary`) VALUES
+    ($id, '$name', '$type1', '$type2', $total, $hp, $attack, $defense, $sp_attack, $sp_defense, $speed, $generation, $legendary);";
+    $conn->query($sql);
+    // foreach ($data as $d) {
+    //   echo $d . ",";
+    //   echo $sql;
+    // }
+
+  }
+}
 ?>
