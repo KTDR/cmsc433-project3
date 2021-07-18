@@ -1,0 +1,132 @@
+ body {
+     margin-top: 0;
+     margin-left: 0;
+     margin-right: 0;
+     background-color: #eaf6f6;
+ }
+
+ .topnav {
+     overflow: hidden;
+     background-color: teal;
+ }
+
+ .topnav a {
+     float: left;
+     color: seashell;
+     text-align: center;
+     padding: 14px 16px;
+     text-decoration: none;
+     font-size: 17px;
+     font-size: 1.2rem;
+ }
+
+ .topnav a:hover {
+     background-color: rgb(185, 62, 62);
+     color: seashell;
+ }
+
+ .topnav a.active {
+     background-color: rgb(185, 62, 62);
+     color: white;
+ }
+
+ hr {
+     border-style: none;
+     border-top-style: dotted;
+     border-color: teal;
+     border-width: 5px;
+     width: 8%;
+     height: 20px;
+ }
+
+ .gameplay {
+     position: relative;
+     margin-left: 550px;
+     margin-top: 20px;
+     margin-bottom: 30px;
+ }
+
+ .button {
+     display: inline-block;
+     border-radius: 20px;
+     background-color: rgb(185, 62, 62);
+     border: none;
+     color: seashell;
+     text-align: center;
+     width: 350px;
+     padding: 40px;
+     transition: all 0.1s;
+     margin: 5px;
+     font-size: 3rem;
+ }
+
+ .button span {
+     display: inline-block;
+     position: relative;
+     transition: 0.25s;
+ }
+
+ .button span:after {
+     content: '\26A1';
+     position: absolute;
+     opacity: 0;
+     transition: 0.25s;
+ }
+
+ .button:hover span {
+     padding-right: 60px;
+ }
+
+ .button:hover span:after {
+     opacity: 1;
+     right: 0;
+ }
+
+ .cards {
+     width: 100%;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-around;
+ }
+
+ .card {
+     margin: 40px;
+     position: relative;
+     max-width: 350px;
+     background-color: teal;
+     border-radius: 20px;
+ }
+
+ .card-title {
+     font-size: 1.5rem;
+     display: block;
+     text-align: center;
+     color: rgb(185, 62, 62);
+     background-color: #2f4f5c;
+     padding: 5%;
+ }
+
+ .card img {
+     width: 100%;
+     height: auto;
+     object-fit: fill;
+     display: block;
+     position: relative;
+ }
+
+ .card-desc {
+     display: block;
+     font-size: 1.5rem;
+     position: absolute;
+     top: 0;
+     opacity: 0;
+     padding: 18px 8%;
+     background-color: #2f4f5c;
+     border-radius: 20px;
+     transition: 0.8s ease;
+     color: seashell;
+ }
+
+ .card:hover .card-desc {
+     opacity: 1;
+ }
