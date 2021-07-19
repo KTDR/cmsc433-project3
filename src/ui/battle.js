@@ -404,8 +404,8 @@ function openMoveset(){
     document.getElementById("menu").innerHTML += "<button id = 'move2' class = 'button' onclick='playerTurn(2)'></button>"
     document.getElementById("menu").innerHTML += "<button id = 'move3' class = 'button' onclick='playerTurn(3)'></button>"
     document.getElementById("menu").innerHTML += "<button id = 'move4' class = 'button' onclick='playerTurn(4)'></button>"
-    document.getElementById("menu").innerHTML += "<button id = 'move5' class = 'button' onclick='playerTurn(5)'></button>"
-    document.getElementById("menu").innerHTML += "<button id = 'move6' class = 'button' onclick='playerTurn(6)'></button>"
+    // document.getElementById("menu").innerHTML += "<button id = 'move5' class = 'button' onclick='playerTurn(5)'></button>"
+    // document.getElementById("menu").innerHTML += "<button id = 'move6' class = 'button' onclick='playerTurn(6)'></button>"
     displayMoveset()
     document.getElementById("menu").innerHTML += "<button id = 'return' class = 'button' onclick='defaultMenu()'> Go back</button>"
 }
@@ -451,8 +451,8 @@ function displayMoveset() {
     document.getElementById("move2").innerHTML = getPokemonMoveByIdSync(moves.Move2).name;
     document.getElementById("move3").innerHTML = getPokemonMoveByIdSync(moves.Move3).name;
     document.getElementById("move4").innerHTML = getPokemonMoveByIdSync(moves.Move4).name;
-    document.getElementById("move5").innerHTML = getPokemonMoveByIdSync(moves.Move5).name;
-    document.getElementById("move6").innerHTML = getPokemonMoveByIdSync(moves.Move6).name;
+    // document.getElementById("move5").innerHTML = getPokemonMoveByIdSync(moves.Move5).name;
+    // document.getElementById("move6").innerHTML = getPokemonMoveByIdSync(moves.Move6).name;
     
 }
 console.log("There");
