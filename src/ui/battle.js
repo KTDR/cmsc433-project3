@@ -173,7 +173,8 @@ function catchPokemon(){
 }
 
 function defaultMenu(){
-    document.getElementById("menu").innerHTML = "<button class = 'button' onclick='openMoveset()'>Fight</button>"
+    document.getElementById("message").innerHTML = ""
+    document.getElementById("menu").innerHTML = "<button class = 'button' onclick='openMoveset()'>Fight</button><button class = 'button' onclick = 'switchPokemon()'>Switch</button>"
 
     let fightType = localStorage.getItem("fightType");
     if(fightType == 0){
@@ -182,6 +183,24 @@ function defaultMenu(){
     else{
         document.getElementById("menu").innerHTML += "<button class = 'button' onclick='goHome()'>Forfeit Battle</button>"
     }
+}
+
+function switchPokemon(){
+    document.getElementById("menu").innerHTML = ""
+    document.getElementById("message").innerHTML = "Choose a pokemon to switch"
+    for(let i = 0; i < party.length; i++){
+        console.log([i]);
+        if(party[i].hp > 0){
+            document.getElementById("menu").innerHTML = "<button id = 'pokemon"+i+"' class = 'button' onclick='swap("+i+")'>"+party[i].name+"</button>"
+        }
+    }
+    document.getElementById("menu").innerHTML += "<button class = 'button' onclick='defaultMenu()'>Cancel</button>"
+}
+
+function swap(index){
+    activePokemonIndex = index;
+    getPartyPokemon();
+    defaultMenu();
 }
 
 function enemyTurn(){
@@ -228,6 +247,12 @@ function enemyTurn(){
         party[activePokemonIndex].hp -= damage;
         document.getElementById("hp").innerHTML = "Health: " + party[activePokemonIndex].hp
         if(party[activePokemonIndex].hp <= 0){
+            for(let i = 0; i < party.length; i++){
+                if(party[i].hp > 0)
+                activePokemonIndex = i;
+                getPartyPokemon();
+                return;
+            }
             defeat();
             return;
         }
