@@ -29,6 +29,14 @@ if( !isset($aResult->error) ) {
                 $aResult->result = getPokemonByName($data->arguments[0]);
             }
             break;
+        case 'getPokemonImageByName':
+            if( !is_array($data->arguments) || (count($data->arguments) < 1) ) {
+                $aResult->error = 'Error in arguments!';
+            }
+            else {
+                $aResult->result = getPokemonImageByName($data->arguments[0]);
+            }
+            break;
 
         default:
             $aResult->error = 'Not found function '.$data->functionname.'!';
@@ -56,6 +64,17 @@ function getPokemonByName($name) {
     $pokemon->generation = (integer) $pokemon->generation;
     $pokemon->legendary = (integer) $pokemon->legendary;
     return $pokemon;
+}
+
+function getPokemonImageByName($name) {
+    $conn = new mysqli("localhost", "root", "", "pokemon");
+    $sql = "SELECT id from pokedex WHERE (name = '$name')";
+    $result = $conn->query($sql);
+    $pokemon = mysqli_fetch_object($result);
+    //fix integers from database being cast into strings, might be a more efficient way to do this
+    $id_string= str_pad($pokemon->id, 3, "0", STR_PAD_LEFT);
+    $imageLocation = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id_string}.png";
+    return $imageLocation;
 }
 
 ?>
