@@ -37,6 +37,22 @@ if( !isset($aResult->error) ) {
                 $aResult->result = getPokemonImageByName($data->arguments[0]);
             }
             break;
+        case 'getPokemonMovesetById':
+            if( !is_array($data->arguments) || (count($data->arguments) < 1) ) {
+                $aResult->error = 'Error in arguments!';
+            }
+            else {
+                $aResult->result = getPokemonMovesetById($data->arguments[0]);
+            }
+            break;
+        case 'getPokemonMoveById':
+            if( !is_array($data->arguments) || (count($data->arguments) < 1) ) {
+                $aResult->error = 'Error in arguments!';
+            }
+            else {
+                $aResult->result = getPokemonMoveById($data->arguments[0]);
+            }
+            break;
 
         default:
             $aResult->error = 'Not found function '.$data->functionname.'!';
@@ -71,10 +87,25 @@ function getPokemonImageByName($name) {
     $sql = "SELECT id from pokedex WHERE (name = '$name')";
     $result = $conn->query($sql);
     $pokemon = mysqli_fetch_object($result);
-    //fix integers from database being cast into strings, might be a more efficient way to do this
     $id_string= str_pad($pokemon->id, 3, "0", STR_PAD_LEFT);
     $imageLocation = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id_string}.png";
     return $imageLocation;
+}
+
+function getPokemonMovesetById($id) {
+    $conn = new mysqli("localhost", "root", "", "pokemon");
+    $sql = "SELECT * from movesets WHERE (id = '$id')";
+    $result = $conn->query($sql);
+    $moveset = mysqli_fetch_object($result);
+    return $moveset;
+}
+
+function getPokemonMoveById($id) {
+    $conn = new mysqli("localhost", "root", "", "pokemon");
+    $sql = "SELECT * from moves WHERE (id = '$id')";
+    $result = $conn->query($sql);
+    $moveset = mysqli_fetch_object($result);
+    return $moveset;
 }
 
 ?>

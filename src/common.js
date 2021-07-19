@@ -53,8 +53,37 @@ function getPokemonByNameAsync(name) {
 function getPokemonImageByNameSync(name) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", '../functions.php', false);
-    console.log("tes")
     var param = JSON.stringify({functionname: 'getPokemonImageByName', arguments: [name]});
+    
+    //Send the proper header information along with the request
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(param);
+    
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        var responseObject = JSON.parse(xhr.response).result;
+        return responseObject;
+    }
+}
+
+function getPokemonMovesetByIdSync(id) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '../functions.php', false);
+    var param = JSON.stringify({functionname: 'getPokemonMovesetById', arguments: [id]});
+    
+    //Send the proper header information along with the request
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(param);
+    
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        var responseObject = JSON.parse(xhr.response).result;
+        return responseObject;
+    }
+}
+
+function getPokemonMoveByIdSync(id) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '../functions.php', false);
+    var param = JSON.stringify({functionname: 'getPokemonMoveById', arguments: [id]});
     
     //Send the proper header information along with the request
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
