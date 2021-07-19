@@ -53,7 +53,8 @@ async function prepareWildFight(){
 }
 
 function displayWildPokemon(id){
-    document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = 'background_images/00"+id+wildPokemon.name+".png'>"
+    let imgLink = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id.toString().padStart(3, '0')}.png`
+    document.getElementById("enemy").innerHTML=`<img id = 'pokeImg' src = '${imgLink}'>`
 }
 
 function getPartyPokemon(){
