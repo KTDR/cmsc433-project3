@@ -21,7 +21,7 @@ function goHome(){
     window.location.href = "http://localhost/proj3/cmsc433-project3/src/homepage.html#home"
 }
 
-async function prepareWildFight(){
+function prepareWildFight(){
     document.getElementById("arena").style.backgroundImage = "url('wild_background.png')"
     defaultMenu()
     document.getElementById("menu").innerHTML += "<button class = 'button' onclick='escape()'>Run</button><button class = 'button' onclick='catchPokemon()'>Catch</button>"
@@ -55,13 +55,8 @@ async function prepareWildFight(){
 }
 
 function displayWildPokemon(id){
-<<<<<<< HEAD
     let img = getPokemonImageByNameSync(wildPokemon.name);
     document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = '"+ img + "'>"
-=======
-    let imgLink = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id.toString().padStart(3, '0')}.png`
-    document.getElementById("enemy").innerHTML=`<img id = 'pokeImg' src = '${imgLink}'>`
->>>>>>> a477bb0b380d2df06abc678864c0c2934d68b503
 }
 
 function getPartyPokemon(){
