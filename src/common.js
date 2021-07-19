@@ -1,6 +1,7 @@
 var musicLinks = {};
 musicLinks.home = "https://vgmsite.com/soundtracks/pokemon-ruby-sapphire-music-super-complete/ipdpgcaw/1-13%20Pok%C3%A9mon%20Center.mp3";
 musicLinks.battle = "https://vgmsite.com/soundtracks/pokemon-ruby-sapphire-music-super-complete/ktnxrati/1-09%20Battle%21%20Wild%20Pok%C3%A9mon.mp3";
+musicLinks.elite4 = "https://vgmsite.com/soundtracks/pokemon-ruby-sapphire-music-super-complete/mzntbysy/2-45%20Battle%21%20The%20Four%20Heavenly%20Kings.mp3";
 var audioObj = new Audio();
 audioObj.loop = true;
 var musicEnabled;
@@ -118,7 +119,13 @@ function setAudio() {
             audioObj.src = musicLinks.home;
         }
         else if (filename.startsWith("battle.html")) {
-            audioObj.src = musicLinks.battle;
+            if (localStorage.getItem("fightType") === '0'){
+                audioObj.src = musicLinks.battle;
+            }
+            else {
+                audioObj.src = musicLinks.elite4;
+            }
+            
         }
         audioObj.play();
         if (musicButton) {musicButton.innerHTML = "Disable Music"};

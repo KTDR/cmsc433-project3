@@ -6,7 +6,7 @@ var currentPokemon = [25, 196, 614, 28, 612, 242, 227, 9, 248, 539, 94, 47, 38, 
 var activePokemonIndex=0;
 
 window.onload = function() {
-    
+    setAudio();
 }
 
 function escape(){
