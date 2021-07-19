@@ -6,7 +6,7 @@ var currentPokemon = [25, 196, 614, 28, 612, 242, 227, 9, 248, 539, 94, 47, 38, 
 var activePokemonIndex=0;
 
 window.onload = function() {
-    displayMoveset();
+    
 }
 
 function escape(){
@@ -341,17 +341,5 @@ function initialize(){
     }
 
     return true;
-}
-
-
-function displayMoveset() {
-    let moves = getPokemonMovesetByIdSync(party[activePokemonIndex].id);
-    document.getElementById("move1").innerHTML = getPokemonMoveByIdSync(moves.Move1).name;
-    document.getElementById("move2").innerHTML = getPokemonMoveByIdSync(moves.Move2).name;
-    document.getElementById("move3").innerHTML = getPokemonMoveByIdSync(moves.Move3).name;
-    document.getElementById("move4").innerHTML = getPokemonMoveByIdSync(moves.Move4).name;
-    document.getElementById("move5").innerHTML = getPokemonMoveByIdSync(moves.Move5).name;
-    document.getElementById("move6").innerHTML = getPokemonMoveByIdSync(moves.Move6).name;
-    
 }
 console.log("There");
