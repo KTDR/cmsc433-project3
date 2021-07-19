@@ -1,5 +1,7 @@
 
-
+window.onload = function(){
+    setHomeURL();
+};
 function getPokemonByNameSync(name) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", 'functions.php', false);
@@ -32,4 +34,11 @@ function getPokemonByNameAsync(name) {
         }
     }
     xhr.send(param);
+}
+
+function setHomeURL() {
+    console.log("called")
+    if (document.title === "Pokemon Home") {
+        window.localStorage.setItem('homeURL', window.location.href);
+    }
 }
