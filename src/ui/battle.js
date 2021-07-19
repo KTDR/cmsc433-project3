@@ -55,6 +55,7 @@ function prepareWildFight(){
         {
             var response = JSON.parse(myRequest.responseText);
             wildPokemon = response[0];
+            var maxHP = wildPokemon.hp
             displayWildPokemon(id);
             getPartyPokemon();
         }
@@ -159,6 +160,7 @@ function displayEnemyParty(index){
 function catchPokemon(){
     if(party.length < 6){
         if(wildPokemon.hp < 20){
+            wildPokemon.hp = maxHP;
             party.push(wildPokemon);
             console.log(party);
             localStorage.setItem("party", JSON.stringify(party));
@@ -248,13 +250,19 @@ function enemyTurn(){
         damage = damage*multiplier;
         party[activePokemonIndex].hp -= damage;
         document.getElementById("hp").innerHTML = "Health: " + party[activePokemonIndex].hp
+        console.log("HP ", party[activePokemonIndex].hp)
         if(party[activePokemonIndex].hp <= 0){
             for(let i = 0; i < party.length; i++){
-                if(party[i].hp > 0)
-                activePokemonIndex = i;
-                getPartyPokemon();
-                return;
+                let num = Number(party[i].hp)
+                if(num >= 0){
+                    activePokemonIndex = i;
+                    getPartyPokemon();
+                    console.log("New pokemonn", party[i])
+                    return;
+                }
+
             }
+            console.log("Defeated!");
             defeat();
             return;
         }
@@ -290,6 +298,7 @@ function playerTurn(moveID){
     let toHit = Math.floor(Math.random() * 100)
     if(toHit > chosenMove.accuracy){
         document.getElementById("message").innerHTML = "Your attack missed!"
+        defaultMenu();
         enemyTurn();
     }
     else{
