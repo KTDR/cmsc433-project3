@@ -166,6 +166,124 @@ function playerTurn(moveID){
 
 }
 
+// Will return a multiplier based on how effective a move is against a pokemon
+// -1 means the pokemon being attacked is immune to the attack
+// Which means if an electric type status is used
+// then it won't hit a ground type.
+function findMoveEffectiveness(atkType, pokeType1, pokeType2)
+{
+		var multiplier = 1;
+    // This is absolutely horrid, I am so sorry
+    const notEffectiveAgainst = 
+    {
+
+    	Normal: ['Rock', 'Steel'],
+    	Fire: ['Fire', 'Water', 'Rock', 'Dragon'],
+    	Water: ['Water', 'Grass', 'Dragon'],
+      Electric: ['Electric', 'Grass', 'Dragon'],
+      Grass: ['Fire', 'Grass', 'Poison', 'Flying', 'Bug', 'Dragon', 'Steel'],
+      Ice: ['Fire', 'Water', 'Ice', 'Steel'],
+      Fighting: ['Poison', 'Flying', 'Psychic', 'Bug', 'Fairy'],
+      Poison: ['Poison', 'Ground', 'Rock', 'Ghost'],
+      Ground: ['Grass', 'Bug'],
+      Flying: ['Electric', 'Rock', 'Steel'],
+      Psychic: ['Psychic', 'Steel'],
+      Bug: ['Fire', 'Fighting', 'Poison', 'Flying', 'Ghost', 'Steel', 'Fairy'],
+      Rock: ['Fighting', 'Ground', 'Steel'],
+      Ghost: ['Dark'],
+      Dragon: ['Steel'],
+      Dark: ['Fighting', 'Dark', 'Fairy'],
+      Steel: ['Fire', 'Water', 'Electric', 'Steel'],
+      Fairy: ['Fire', 'Poison', 'Steel']
+      
+    
+
+    };    
+    
+    const superEffectiveAgainst = 
+    {
+
+    	Normal: ['Nothing'],
+    	Fire: ['Grass', 'Ice', 'Bug', 'Steel'],
+    	Water: ['Fire', 'Ground', 'Rock'],
+      Electric: ['Water', 'Flying'],
+      Grass: ['Water', 'Ground', 'Rock'],
+      Ice: ['Grass', 'Ground', 'Flying', 'Dragon'],
+      Fighting: ['Normal', 'Ice', 'Rock', 'Dark', 'Steel'],
+      Poison: ['Grass', 'Fairy'],
+      Ground: ['Fire', 'Electric', 'Poison', 'Rock', 'Steel'],
+      Flying: ['Grass', 'Fighting', 'Bug'],
+      Psychic: ['Fighting', 'Poison'],
+      Bug: ['Grass', 'Psychic', 'Dark'],
+      Rock: ['Fire', 'Ice', 'Flying', 'Bug'],
+      Ghost: ['Psychic', 'Ghost'],
+      Dragon: ['Dragon'],
+      Dark: ['Psychic', 'Ghost'],
+      Steel: ['Ice', 'Rock', 'Fairy'],
+      Fairy: ['Fighting', 'Dragon', 'Dark']
+      
+    
+
+    };  
+    
+    const noEffectOn = 
+    {
+    	
+      Normal: ['Ghost'],
+    	Fire: ['Nothing'],
+    	Water: ['Nothing'],
+      Electric: ['Ground'],
+      Grass: ['Nothing'],
+      Ice: ['Nothing'],
+      Fighting: ['Ghost'],
+      Poison: ['Steel'],
+      Ground: ['Flying'],
+      Flying: ['Nothing'],
+      Psychic: ['Dark'],
+      Bug: ['Nothing'],
+      Rock: ['Nothing'],
+      Ghost: ['Normal'],
+      Dragon: ['Fairy'],
+      Dark: ['Nothing'],
+      Steel: ['Nothing'],
+      Fairy: ['Nothing']
+    };
+    var lessDamage = notEffectiveAgainst[atkType];
+    var moreDamage = superEffectiveAgainst[atkType];
+    var noDamage = noEffectOn[atkType];
+    
+    if (lessDamage.includes(pokeType1))
+    {
+    	multiplier /= 2;
+    }
+    
+    if (lessDamage.includes(pokeType2))
+    {
+    	multiplier /= 2;
+    }
+    
+    if (moreDamage.includes(pokeType1))
+    {
+    	multiplier *= 2;
+    }
+    
+    if (moreDamage.includes(pokeType2))
+    {
+    	multiplier *= 2;
+    }
+    
+    if (noDamage.includes(pokeType1))
+    {
+    	multiplier = -1;
+    }
+    
+    if (noDamage.includes(pokeType2))
+    {
+    	multiplier = -1;
+    }
+    return multiplier;
+
+}
 function openMoveset(){
     document.getElementById("message").innerHTML = "";
 }
