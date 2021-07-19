@@ -80,7 +80,7 @@ $sql = "INSERT INTO `moves` (`id`, `name`, `type`, `category`, `power`, `accurac
 (33, 'Steel Wing', 'Steel', 'Physical', 70, 90, 'Burning', 0.1, 25),
 (34, 'Water Gun', 'Water', 'Special', 40, 100, 'Nothing', 0, 25),
 (35, 'Water Pulse', 'Water', 'Special', 80, 100, 'Nothing', 0, 25),
-(36, '', '', '', 0, 0, '', 0, 0),
+(36, 'Pound', 'Normal', 'Physical', 40, 100, 'Nothing', 0, 35),
 (37, 'Aqua Tail', 'Water', 'Physical', 90, 90, 'Nothing', 0, 10),
 (38, 'Hydro Pump', 'Water', 'Special', 120, 80, 'Nothing', 0, 5),
 (39, 'Skull Bash', 'Normal', 'Physical', 100, 100, 'Nothing', 0, 10),
@@ -114,7 +114,22 @@ $sql = "INSERT INTO `moves` (`id`, `name`, `type`, `category`, `power`, `accurac
 (67, 'Muddy Water', 'Water', 'Special', 95, 80, 'Nothing', 0, 10),
 (68, 'Razor Leaf', 'Grass', 'Physical', 65, 100, 'Nothing', 0, 25),
 (69, 'Petal Blizzard', 'Grass', 'Physical', 105, 90, 'Nothing', 0, 15),
-(70, 'Sucker Punch', 'Dark', 'Physical', 75, 100, 'Sleep', 0.1, 10);";
+(70, 'Sucker Punch', 'Dark', 'Physical', 75, 100, 'Sleep', 0.1, 10),
+(71, 'Fire Punch', 'Fire', 'Physical', 75, 100, 'Burning', 0.1, 15),
+(72, 'Blaze Kick', 'Fire', 'Physical', 95, 90, 'Burning', 0.1, 12),
+(73, 'Darkest Lariat', 'Dark', 'Physical', 110, 85, 'Nothing', 0, 10),
+(74, 'Cross Chop', 'Fighting', 'Physical', 115, 75, 'Nothing', 0, 5),
+(75, 'Flare Blitz', 'Fire', 'Physical', 120, 65, 'Burning', 0.2, 5),
+(76, 'Zen Headbutt', 'Psychic', 'Physical', 95, 95, 'Nothing', 0, 15),
+(77, 'Force Palm', 'Fighting', 'Physical', 60, 100, 'Paralyze', 0.3, 10),
+(78, 'High Jump Kick', 'Fighting', 'Physical', 100, 90, 'Nothing', 0, 10),
+(79, 'Meteor Mash', 'Steel', 'Physical', 105, 90, 'Nothing', 0, 10),
+(80, 'Flash Cannon', 'Steel', 'Special', 85, 100, 'Nothing', 0, 15),
+(81, 'Discharge', 'Electric', 'Special', 80, 100, 'Paralyze', 0.3, 10),
+(82, 'Zap Cannon', 'Electric', 'Special', 120, 50, 'Paralyze', 1, 5),
+(83, 'Sludge', 'Poison', 'Special', 65, 100, 'Poison', 0.3, 20),
+(84, 'Psycho Cut', 'Psychic', 'Physical', 85, 100, 'Nothing', 0, 20),
+(85, 'Will-O-Wisp', 'Fire', 'Effect', 0, 85, 'Burning', 1, 15);";
 
 $conn->query($sql);
 
@@ -138,7 +153,18 @@ $sql = "INSERT INTO `movesets` (`id`, `Name`, `Move1`, `Move2`, `Move3`, `Move4`
 (130, 'Gyarados', 63, 64, 25, 38, 3, 7),
 (537, 'Seismitoad', 65, 66, 67, 38, 3, 7),
 (154, 'Meganium', 59, 68, 69, 53, 3, 7),
-(275, 'Shiftry', 70, 64, 58, 69, 3, 7); ";
+(275, 'Shiftry', 70, 64, 58, 69, 3, 7),
+(257, 'Blaziken', 47, 71, 56, 72, 3, 7),
+(727, 'Incineroar', 73, 74, 75, 56, 3, 7),
+(308, 'Medichamp', 76, 77, 48, 78, 3, 7),
+(448, 'Lucario', 77, 78, 31, 79, 3, 7),
+(82, 'Magneton', 2, 80, 81, 82, 3, 7),
+(311, 'Plusle', 2, 5, 81, 4, 3, 7),
+(312, 'Minun', 5, 6, 4, 81, 3, 7),
+(89, 'Muk', 83, 8, 6, 29, 3, 7),
+(65, 'Alakazam', 49, 10, 8, 84, 3, 7),
+(442, 'Spiritomb', 29, 6, 11, 70, 3, 7),
+(609, 'Chandelure', 49, 61, 85, 11, 3, 7);";
 
 $conn->query($sql);
 
