@@ -1,5 +1,6 @@
 var wildPokemon;
 var party = JSON.parse(localStorage.getItem("party"));
+console.log("Party", party);
 var enemyParty;
 var currentPokemon = [25, 196, 614, 28, 612, 242, 227, 9, 248, 539, 94, 47, 38, 254, 282, 130, 537, 154, 275, 257, 727, 308, 448,
 82, 311, 312, 89, 65, 442, 609];
@@ -73,7 +74,7 @@ function getPartyPokemon(){
     
 }
 function displayPartyPokemon(party_number){
-    console.log("The heck ", party[party_number])
+    console.log( party[party_number])
     let img = getPokemonImageByNameSync(party[party_number].name);
     document.getElementById("player").innerHTML="<img id = 'pokeImg' src = '"+ img + "'><div id = 'hp'> Health: "+party[party_number].hp+"<div>"
 }
@@ -160,6 +161,7 @@ function catchPokemon(){
         if(wildPokemon.hp < 20){
             party.push(wildPokemon);
             console.log(party);
+            localStorage.setItem("party", JSON.stringify(party));
             document.getElementById("message").innerHTML = ("Pokemon caught!");
             document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>"
         }
@@ -191,7 +193,7 @@ function switchPokemon(){
     for(let i = 0; i < party.length; i++){
         console.log([i]);
         if(party[i].hp > 0){
-            document.getElementById("menu").innerHTML = "<button id = 'pokemon"+i+"' class = 'button' onclick='swap("+i+")'>"+party[i].name+"</button>"
+            document.getElementById("menu").innerHTML += "<button id = 'pokemon"+i+"' class = 'button' onclick='swap("+i+")'>"+party[i].name+"</button>"
         }
     }
     document.getElementById("menu").innerHTML += "<button class = 'button' onclick='defaultMenu()'>Cancel</button>"
