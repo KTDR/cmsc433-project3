@@ -1,7 +1,8 @@
 var wildPokemon;
 var party = JSON.parse(localStorage.getItem("party"));
 var enemyParty;
-var currentPokemon = [25, 196, 614, 28, 612, 242, 227, 9, 248, 539, 94, 47, 38, 254, 282, 130, 537, 154, 275]
+var currentPokemon = [25, 196, 614, 28, 612, 242, 227, 9, 248, 539, 94, 47, 38, 254, 282, 130, 537, 154, 275, 257, 727, 308, 448,
+82, 311, 312, 89, 65, 442, 609];
 
 function escape(){
 
@@ -136,7 +137,7 @@ function catchPokemon(){
         document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>"
     }
     else{
-        document.getElementById("message").innerHTML = ("Pokemon could not be caught! It's health is too high!");
+        document.getElementById("message").innerHTML = ("Pokemon could not be caught! Its health is too high!");
     }
 }
 
