@@ -88,7 +88,39 @@ function prepareEliteFight(){
         document.getElementById("title").innerHTML += "4";
         enemyParty = [4, 4, 4, 4, 4, 4]
     }
+
+    getEnemyParty(enemyParty, 0);
     
+}
+
+function getEnemyParty(enemyParty, i){
+
+    if(i < enemyParty.length){
+        var myRequest = new XMLHttpRequest();
+        var method = "POST";
+        var url = "getdata.php"
+        var isAsync = true
+    
+    
+        myRequest.open(method, url, isAsync);
+
+        myRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        myRequest.send("id=" + enemyParty[i]);
+
+        myRequest.onreadystatechange = function() {
+            if (myRequest.readyState == 4 && myRequest.status == 200)
+            {
+                var response = JSON.parse(myRequest.responseText);
+                enemyParty[i] = response[0];
+                console.log("Num: ", i, " ", enemyParty[i]);
+                localStorage.setItem("party", JSON.stringify(party));
+                console.log(enemyParty)
+                getEnemyParty(enemyParty, i+=1)
+            }
+        }
+    }
+    
+     
 }
 
 function catchPokemon(){
