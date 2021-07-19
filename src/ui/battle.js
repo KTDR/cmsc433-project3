@@ -1,6 +1,7 @@
 var wildPokemon;
 var party = JSON.parse(localStorage.getItem("party"));
 var enemyParty;
+var currentPokemon = [25, 196, 614, 28, 612, 242, 227, 9, 248, 539, 94, 47, 38, 254, 282, 130, 537, 154, 275]
 
 function escape(){
 
@@ -25,7 +26,8 @@ async function prepareWildFight(){
     defaultMenu()
     document.getElementById("menu").innerHTML += "<button class = 'button' onclick='escape()'>Run</button><button class = 'button' onclick='catchPokemon()'>Catch</button>"
 
-    let id = Math.floor(Math.random() * 5 + 1)
+    let id = Math.floor(Math.random() * currentPokemon.length)
+    id = currentPokemon[id];
 
     /*cannot be it's own function, it messes up. No clue why*/
     var myRequest = new XMLHttpRequest();
@@ -53,7 +55,8 @@ async function prepareWildFight(){
 }
 
 function displayWildPokemon(id){
-    document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = 'background_images/00"+id+wildPokemon.name+".png'>"
+    let img = getPokemonImageByNameSync(wildPokemon.name);
+    document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = '"+ img + "'>"
 }
 
 function getPartyPokemon(){
@@ -62,31 +65,33 @@ function getPartyPokemon(){
 }
 function displayPartyPokemon(party_number){
     console.log("The heck ", party[party_number])
-    document.getElementById("player").innerHTML="<img id = 'pokeImg' src = 'background_images/00"+party[party_number].id+party[party_number].name+".png'>"
+    let img = getPokemonImageByNameSync(party[party_number].name);
+    document.getElementById("player").innerHTML="<img id = 'pokeImg' src = '"+ img + "'>"
 }
 
 function prepareEliteFight(){
     let eliteStage = localStorage.getItem("eliteStage");
     document.getElementById("title").innerHTML = "Elite 4 Challenge: ";
     if(!eliteStage || eliteStage == 0){
+        localStorage.setItem("eliteStage", 0);
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_1.png')"
         document.getElementById("title").innerHTML += "1";
-        enemyParty = [4, 4, 4]
+        enemyParty = [25, 28, 196]
     }
     else if(eliteStage == 1){
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_2.png')"
         document.getElementById("title").innerHTML += "2";
-        enemyParty = [4, 4, 4, 4]
+        enemyParty = [94, 254, 275, 47]
     }
     else if(eliteStage == 2){
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_3.png')"
         document.getElementById("title").innerHTML += "3";
-        enemyParty = [4, 4, 4, 4, 4]
+        enemyParty = [9, 539, 38, 282, 130]
     }
     else if(eliteStage == 3){
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_4.png')"
         document.getElementById("title").innerHTML += "4";
-        enemyParty = [4, 4, 4, 4, 4, 4]
+        enemyParty = [154, 612, 614, 28, 242, 537]
     }
 
     getEnemyParty(enemyParty, 0);
@@ -152,6 +157,20 @@ function openMoveset(){
 }
 
 function victory(){
+    let fightType = localStorage.getItem("fightType");
+    if(fightType == 0){
+        document.getElementById("message").innerHTML = "You won!";
+        document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>"
+    }
+    else{
+        let eliteStage = localStorage.get("eliteStage");
+        eliteStage ++;
+        localStorage.setItem("eliteStage", eliteStage)
+        if(eliteStage > 3){
+            window.location.href = "http://localhost/proj3/cmsc433-project3/src/victory.html"
+        }
+    }
+
 
 }
 

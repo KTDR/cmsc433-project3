@@ -15,7 +15,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
 
-
 // Create the tables
 $sql = "CREATE TABLE `moves` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -146,6 +145,7 @@ $conn->query($sql);
 rebuildPokedex();
 //Takes data from the .csv and places it in the pokedex table, which serves as storage for all base pokemon stats
 function rebuildPokedex() {
+ 
   $sql = "CREATE TABLE `pokedex` (
     `id` int(3) UNIQUE NOT NULL PRIMARY KEY,
     `name` text NOT NULL,
