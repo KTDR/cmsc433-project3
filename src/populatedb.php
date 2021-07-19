@@ -31,22 +31,9 @@ $sql = "CREATE TABLE `moves` (
 
 $conn->query($sql);
 
-$sql = "CREATE TABLE `stats` (
-    `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` text NOT NULL UNIQUE,
-    `type` text NOT NULL,
-    `hp` int(11) NOT NULL,
-    `att` int(11) NOT NULL,
-    `spatt` int(11) NOT NULL,
-    `def` int(11) NOT NULL,
-    `spdef` int(11) NOT NULL,
-    `spd` int(11) NOT NULL
-  );";
-
-$conn->query($sql);
 
 $sql = "CREATE TABLE `movesets` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` int(11) NOT NULL PRIMARY KEY,
   `Name` text NOT NULL UNIQUE,
   `Move1` int(11) NOT NULL,
   `Move2` int(11) NOT NULL,
@@ -88,21 +75,13 @@ $sql = "INSERT INTO `moves` (`name`, `type`, `category`, `power`, `accuracy`, `s
 
 $conn->query($sql);
 
-$sql = "INSERT INTO `stats` (`name`, `type`, `hp`, `att`, `spatt`, `def`, `spdef`, `spd`) VALUES
-( 'Pikachu', 'Electric', 35, 55, 40, 50, 50, 90),
-( 'Espeon', 'Psychic', 65, 65, 60, 130, 95, 110),
-( 'Beartic', 'Ice', 95, 130, 80, 70, 80, 50),
-( 'Sandslash', 'Ground', 75, 100, 110, 45, 55, 65),
-( 'Haxorus', 'Dragon', 76, 147, 90, 60, 70, 97);";
 
-$conn->query($sql);
-
-$sql = "INSERT INTO `movesets` (`name`, `Move1`, `Move2`, `Move3`, `Move4`, `Move5`, `Move6`) VALUES 
-('Pikachu', 1, 2, 3, 4, 5, 6),
-('Espeon', 7, 8, 9, 10, 11, 12),
-('Beartic', 13, 14, 15, 16, 17, 18),
-('Sandslash', 16, 19, 20, 21, 22, 23),
-('Haxorus', 9, 16, 22, 24, 25, 26); ";
+$sql = "INSERT INTO `movesets` ('id', `name`, `Move1`, `Move2`, `Move3`, `Move4`, `Move5`, `Move6`) VALUES 
+(25, 'Pikachu', 1, 2, 3, 4, 5, 6),
+(196, 'Espeon', 7, 8, 9, 10, 11, 12),
+(614, 13, 14, 15, 16, 17, 18),
+(28, 'Sandslash', 16, 19, 20, 21, 22, 23),
+(612, 'Haxorus', 9, 16, 22, 24, 25, 26); ";
 
 $conn->query($sql);
 
