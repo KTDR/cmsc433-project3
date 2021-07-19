@@ -48,7 +48,6 @@ function getPokemonByNameAsync(name) {
 }
 
 function setHomeURL() {
-    console.log("called")
     if (document.title === "Pokemon Home") {
         window.localStorage.setItem('homeURL', window.location.href);
     }
