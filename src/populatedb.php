@@ -33,7 +33,7 @@ $conn->query($sql);
 
 
 $sql = "CREATE TABLE `movesets` (
-  `id` int(11) NOT NULL PRIMARY KEY,
+  `id` int(11) NOT NULL,
   `Name` text NOT NULL UNIQUE,
   `Move1` int(11) NOT NULL,
   `Move2` int(11) NOT NULL,
@@ -76,10 +76,10 @@ $sql = "INSERT INTO `moves` (`name`, `type`, `category`, `power`, `accuracy`, `s
 $conn->query($sql);
 
 
-$sql = "INSERT INTO `movesets` ('id', `name`, `Move1`, `Move2`, `Move3`, `Move4`, `Move5`, `Move6`) VALUES 
+$sql = "INSERT INTO `movesets` (`id`, `name`, `Move1`, `Move2`, `Move3`, `Move4`, `Move5`, `Move6`) VALUES 
 (25, 'Pikachu', 1, 2, 3, 4, 5, 6),
 (196, 'Espeon', 7, 8, 9, 10, 11, 12),
-(614, 13, 14, 15, 16, 17, 18),
+(614, 'Beartic', 13, 14, 15, 16, 17, 18),
 (28, 'Sandslash', 16, 19, 20, 21, 22, 23),
 (612, 'Haxorus', 9, 16, 22, 24, 25, 26); ";
 
