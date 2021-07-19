@@ -4,9 +4,10 @@ var enemyParty;
 var currentPokemon = [25, 196, 614, 28, 612, 242, 227, 9, 248, 539, 94, 47, 38, 254, 282, 130, 537, 154, 275, 257, 727, 308, 448,
 82, 311, 312, 89, 65, 442, 609];
 var activePokemonIndex=0;
+var activeEnemyIndex=0;
 
 window.onload = function() {
-    setAudio();
+    displayMoveset();
 }
 
 function escape(){
@@ -24,6 +25,7 @@ function escape(){
 }
 
 function goHome(){
+    document.getElementById("message").innerHTML = "";
     window.location.href = "http://localhost/proj3/cmsc433-project3/src/homepage.html#home"
 }
 
@@ -61,7 +63,7 @@ function prepareWildFight(){
 
 function displayWildPokemon(id){
     let img = getPokemonImageByNameSync(wildPokemon.name);
-    document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = '"+ img + "'>"
+    document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = '"+ img + "'><div id = 'enemyhp'> Health: "+wildPokemon.hp+"<div>"
 }
 
 function getPartyPokemon(){
@@ -71,7 +73,7 @@ function getPartyPokemon(){
 function displayPartyPokemon(party_number){
     console.log("The heck ", party[party_number])
     let img = getPokemonImageByNameSync(party[party_number].name);
-    document.getElementById("player").innerHTML="<img id = 'pokeImg' src = '"+ img + "'>"
+    document.getElementById("player").innerHTML="<img id = 'pokeImg' src = '"+ img + "'><div id = 'hp'> Health: "+party[party_number].hp+"<div>"
 }
 
 function prepareEliteFight(){
@@ -148,18 +150,23 @@ function getEnemyParty(enemyParty, i){
 
 function displayEnemyParty(index){
     let img = getPokemonImageByNameSync(enemyParty[index].name);
-    document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = '"+ img + "'>"
+    document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = '"+ img + "'><div id = 'enemyhp'> Health: "+enemyParty[index].hp+"<div>"
 }
 
 function catchPokemon(){
-    if(wildPokemon.hp < wildPokemon.hp/4){
-        party.push(wildPokemon);
-        console.log(party);
-        document.getElementById("message").innerHTML = ("Pokemon caught!");
-        document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>"
+    if(party.length < 6){
+        if(wildPokemon.hp < 20){
+            party.push(wildPokemon);
+            console.log(party);
+            document.getElementById("message").innerHTML = ("Pokemon caught!");
+            document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>"
+        }
+        else{
+            document.getElementById("message").innerHTML = ("Pokemon could not be caught! Its health is too high!");
+        }
     }
     else{
-        document.getElementById("message").innerHTML = ("Pokemon could not be caught! Its health is too high!");
+        document.getElementById("message").innerHTML = ("Your party is already full!");
     }
 }
 
@@ -176,11 +183,99 @@ function defaultMenu(){
 }
 
 function enemyTurn(){
-
+    let chosenMove;
+    let fightType = localStorage.getItem("fightType");
+    let moves;
+    if(fightType == 0){
+        moves = getPokemonMovesetByIdSync(wildPokemon.id);
+    }
+    else{
+        moves = getPokemonMovesetByIdSync(enemyParty[activeEnemyIndex].id);
+    }
+    console.log("Moves", moves)
+    let moveID = Math.floor(Math.random() * 6) + 1
+    switch(moveID){
+        case 1:
+            chosenMove = getPokemonMoveByIdSync(moves.Move1);
+            break;
+        case 2:
+            chosenMove = getPokemonMoveByIdSync(moves.Move2);
+            break;
+        case 3:
+            chosenMove = getPokemonMoveByIdSync(moves.Move3);
+            break;
+        case 4:
+            chosenMove = getPokemonMoveByIdSync(moves.Move4);
+            break;
+        case 5:
+            chosenMove = getPokemonMoveByIdSync(moves.Move5);
+            break;
+        case 6:
+            chosenMove = getPokemonMoveByIdSync(moves.Move6);
+            break;
+    }
+    console.log(chosenMove)
+    let toHit = Math.floor(Math.random() * 100)
+    if(toHit > chosenMove.accuracy){
+        document.getElementById("message").innerHTML += "<br>Enemy attack missed!"
+    }
+    else{
+        damage = Math.floor(chosenMove.power / 4)
+        multiplier = findMoveEffectiveness(chosenMove.type, party[activePokemonIndex].type1, party[activePokemonIndex].type2);
+        damage = damage*multiplier;
+        party[activePokemonIndex].hp -= damage;
+        document.getElementById("hp").innerHTML = "Health: " + party[activePokemonIndex].hp
+        if(party[activePokemonIndex].hp <= 0){
+            defeat();
+            return;
+        }
+    }
+    document.getElementById("message").innerHTML = ""
 }
 
 function playerTurn(moveID){
-
+    console.log("Player");
+    let chosenMove;
+    let moves = getPokemonMovesetByIdSync(party[activePokemonIndex].id);
+    switch(moveID){
+        case 1:
+            chosenMove = getPokemonMoveByIdSync(moves.Move1);
+            break;
+        case 2:
+            chosenMove = getPokemonMoveByIdSync(moves.Move2);
+            break;
+        case 3:
+            chosenMove = getPokemonMoveByIdSync(moves.Move3);
+            break;
+        case 4:
+            chosenMove = getPokemonMoveByIdSync(moves.Move4);
+            break;
+        case 5:
+            chosenMove = getPokemonMoveByIdSync(moves.Move5);
+            break;
+        case 6:
+            chosenMove = getPokemonMoveByIdSync(moves.Move6);
+            break;
+    }
+    console.log(chosenMove)
+    let toHit = Math.floor(Math.random() * 100)
+    if(toHit > chosenMove.accuracy){
+        document.getElementById("message").innerHTML = "Your attack missed!"
+        enemyTurn();
+    }
+    else{
+        damage = Math.floor(chosenMove.power / 4)
+        multiplier = findMoveEffectiveness(chosenMove.type, wildPokemon.type1, wildPokemon.type2);
+        damage = damage*multiplier;
+        wildPokemon.hp -= damage;
+        document.getElementById("enemyhp").innerHTML = "Health: " + wildPokemon.hp
+        if(wildPokemon.hp <= 0){
+            victory();
+        }
+    }
+    document.getElementById("message").innerHTML = ""
+    defaultMenu();
+    enemyTurn();
 }
 
 // Will return a multiplier based on how effective a move is against a pokemon
@@ -323,12 +418,16 @@ function victory(){
         let eliteStage = localStorage.get("eliteStage");
         eliteStage ++;
         localStorage.setItem("eliteStage", eliteStage)
+        document.getElementById("message").innerHTML = "You won!";
         if(eliteStage > 3){
             window.location.href = "http://localhost/proj3/cmsc433-project3/src/victory.html"
         }
     }
 
-
+}
+function defeat(){
+    document.getElementById("message").innerHTML = "You Lost!";
+    document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>"
 }
 
 function initialize(){
@@ -341,5 +440,17 @@ function initialize(){
     }
 
     return true;
+}
+
+
+function displayMoveset() {
+    let moves = getPokemonMovesetByIdSync(party[activePokemonIndex].id);
+    document.getElementById("move1").innerHTML = getPokemonMoveByIdSync(moves.Move1).name;
+    document.getElementById("move2").innerHTML = getPokemonMoveByIdSync(moves.Move2).name;
+    document.getElementById("move3").innerHTML = getPokemonMoveByIdSync(moves.Move3).name;
+    document.getElementById("move4").innerHTML = getPokemonMoveByIdSync(moves.Move4).name;
+    document.getElementById("move5").innerHTML = getPokemonMoveByIdSync(moves.Move5).name;
+    document.getElementById("move6").innerHTML = getPokemonMoveByIdSync(moves.Move6).name;
+    
 }
 console.log("There");
