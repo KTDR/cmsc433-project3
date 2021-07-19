@@ -77,22 +77,30 @@ function prepareEliteFight(){
         localStorage.setItem("eliteStage", 0);
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_1.png')"
         document.getElementById("title").innerHTML += "1";
-        enemyParty = [25, 28, 196]
+
+        // Configures party to Water and Grass focused party
+        enemyParty = [130, 537, 154, 275, 254, 47];
     }
     else if(eliteStage == 1){
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_2.png')"
         document.getElementById("title").innerHTML += "2";
-        enemyParty = [94, 254, 275, 47]
+
+        // Configures party to Fire and Fighting focused party
+        enemyParty = [727, 308, 448, 257, 539, 38];
     }
     else if(eliteStage == 2){
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_3.png')"
         document.getElementById("title").innerHTML += "3";
-        enemyParty = [9, 539, 38, 282, 130]
+
+        // Configures party to Electric and Steel focused party 
+        enemyParty = [82, 311, 312, 25, 227, 282];
     }
     else if(eliteStage == 3){
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_4.png')"
         document.getElementById("title").innerHTML += "4";
-        enemyParty = [154, 612, 614, 28, 242, 537]
+
+        // Configures party to the annoying party
+        enemyParty = [47, 65, 89, 442, 609, 242];
     }
 
     getEnemyParty(enemyParty, 0);
