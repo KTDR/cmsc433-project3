@@ -6,41 +6,40 @@
     <link rel="stylesheet" href="homepage.css">
 
     <script>
-        function fight(selector){
-            if(selector === 0){
+        function fight(selector) {
+            if (selector === 0) {
                 localStorage.setItem("fightType", "0")
             }
-             else{
+            else {
                 localStorage.setItem("fightType", "1")
             }
         }
-        if(!localStorage.getItem("party") || localStorage.getItem("party") == 0){
+        if (!localStorage.getItem("party") || localStorage.getItem("party") == 0) {
             party = [25];
             //party[0] = 4;
-            
- 
+
+
             var myRequest = new XMLHttpRequest();
             var method = "POST";
             var url = "ui/getdata.php"
             var isAsync = true
-    
-            for(let i = 0; i < party.length; i++){
+
+            for (let i = 0; i < party.length; i++) {
                 myRequest.open(method, url, isAsync);
 
                 myRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 myRequest.send("id=" + party[i]);
 
-                myRequest.onreadystatechange = function() {
-                    if (myRequest.readyState == 4 && myRequest.status == 200)
-                    {
-                    var response = JSON.parse(myRequest.responseText);
-                    party[i] = response[0];
-                    console.log("Num: ", i, " ", party[i]);
-                    localStorage.setItem("party", JSON.stringify(party));
-                    console.log("Default party established")
+                myRequest.onreadystatechange = function () {
+                    if (myRequest.readyState == 4 && myRequest.status == 200) {
+                        var response = JSON.parse(myRequest.responseText);
+                        party[i] = response[0];
+                        console.log("Num: ", i, " ", party[i]);
+                        localStorage.setItem("party", JSON.stringify(party));
+                        console.log("Default party established")
                     }
                 }
-            }   
+            }
         }
         console.log("Initialized JS")
     </script>
@@ -52,13 +51,15 @@
 <body>
     <div class="topnav">
         <a class="active" href="#home">Home</a>
-        <button id='musicButton' style="font-size: 30px;" onclick="toggleMusic()"></button>
+        <a id='musicButton' onclick="toggleMusic()"></a>
         <a href="#about">About</a>
-        <button onclick="location.href='./populatedb.php'" style="font-size: 20px;" ">Reinitialize Database</button>
+
     </div>
     <div class="gameplay">
-        <a class="button" style="vertical-align:middle" href="ui/battle.html" onclick="fight(1)"><span>Next Elite 4 Fight </span></a>
-        <a class="button" style="vertical-align:middle" href="ui/battle.html" onclick="fight(0)"><span>Fight Wild Pokemon </span></a>
+        <a class="button" style="vertical-align:middle" href="ui/battle.html" onclick="fight(1)"><span>Next Elite 4
+                Fight </span></a>
+        <a class="button" style="vertical-align:middle" href="ui/battle.html" onclick="fight(0)"><span>Fight Wild
+                Pokemon </span></a>
     </div>
     <hr>
     <div class="cards">
@@ -86,6 +87,10 @@
     </div>
     <hr>
     <!-- <audio id="audio" controls="" preload="auto" src="https://vgmsite.com/soundtracks/pokemon-ruby-sapphire-music-super-complete/ipdpgcaw/1-13%20Pok%C3%A9mon%20Center.mp3"></audio> -->
+    <div class="dataBase">
+        <button class="button" onclick="location.href='./populatedb.php'">Reinitialize Database</button>
+    </div>
+    <hr>
 </body>
 
 </html>
