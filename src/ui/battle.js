@@ -8,7 +8,8 @@ function escape(){
         console.log("Escaped!")
     }
     else{
-        alert("Couldn't escape!")
+        document.getElementById("message").innerHTML = ("Couldn't get away!");
+        console.log("Couldn't escape!")
     }
 
 }
@@ -118,7 +119,7 @@ function playerTurn(moveID){
 }
 
 function openMoveset(){
-    
+    document.getElementById("message").innerHTML = "";
 }
 
 function victory(){
