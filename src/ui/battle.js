@@ -30,7 +30,6 @@ function goHome(){
 function prepareWildFight(){
     document.getElementById("arena").style.backgroundImage = "url('wild_background.png')"
     defaultMenu()
-    document.getElementById("menu").innerHTML += "<button class = 'button' onclick='escape()'>Run</button><button class = 'button' onclick='catchPokemon()'>Catch</button>"
 
     let id = Math.floor(Math.random() * currentPokemon.length)
     id = currentPokemon[id];
@@ -138,8 +137,15 @@ function getEnemyParty(enemyParty, i){
             }
         }
     }
+    else{
+        displayEnemyParty(0);
+    }
     
      
+}
+
+function displayEnemyParty(index){
+
 }
 
 function catchPokemon(){
@@ -156,6 +162,11 @@ function catchPokemon(){
 
 function defaultMenu(){
     document.getElementById("menu").innerHTML = "<button class = 'button' onclick='openMoveset()'>Fight</button>"
+
+    let fightType = localStorage.getItem("fightType");
+    if(fightType == 0){
+        document.getElementById("menu").innerHTML += "<button class = 'button' onclick='escape()'>Run</button><button class = 'button' onclick='catchPokemon()'>Catch</button>"
+    }
 }
 
 function enemyTurn(){
@@ -285,7 +296,15 @@ function findMoveEffectiveness(atkType, pokeType1, pokeType2)
 
 }
 function openMoveset(){
-    document.getElementById("message").innerHTML = "";
+    document.getElementById("message").innerHTML = "Select a Move";
+    document.getElementById("menu").innerHTML = "<button id = 'move1' class = 'button' onclick='playerTurn(1)'></button>"
+    document.getElementById("menu").innerHTML += "<button id = 'move2' class = 'button' onclick='playerTurn(2)'></button>"
+    document.getElementById("menu").innerHTML += "<button id = 'move3' class = 'button' onclick='playerTurn(3)'></button>"
+    document.getElementById("menu").innerHTML += "<button id = 'move4' class = 'button' onclick='playerTurn(4)'></button>"
+    document.getElementById("menu").innerHTML += "<button id = 'move5' class = 'button' onclick='playerTurn(5)'></button>"
+    document.getElementById("menu").innerHTML += "<button id = 'move6' class = 'button' onclick='playerTurn(6)'></button>"
+    displayMoveset()
+    document.getElementById("menu").innerHTML += "<button id = 'return' class = 'button' onclick='defaultMenu()'> Go back</button>"
 }
 
 function victory(){
@@ -304,29 +323,6 @@ function victory(){
     }
 
 
-}
-
-const getPokemon = async function(id){
-    var myRequest = new XMLHttpRequest();
-    var method = "POST";
-    var url = "getdata.php"
-    var id= 1;
-    var isAsync = true
-    
-    myRequest.open(method, url, isAsync);
-
-    myRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    myRequest.send("id=" + id);
-
-    myRequest.onreadystatechange = function() {
-        if (myRequest.readyState == 4 && myRequest.status == 200)
-        {
-            var response = JSON.parse(myRequest.responseText);
-            console.log(response[0]);
-            document.getElementById("enemy").innerHTML = response[0].name;
-            return response[0];
-        }
-    }
 }
 
 function initialize(){
