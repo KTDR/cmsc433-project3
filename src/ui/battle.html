@@ -2,8 +2,8 @@
 <html>
     <head>
         <style>
-            .arena{
-                background-image: url("wild_background.png");
+            #arena{
+               background-color: aqua;
                 background-repeat: no-repeat;  
                 background-size: cover;
                 width: 60vw;
@@ -34,6 +34,25 @@
             #title{
                 text-align: center;
             }
+            #message{
+                color: red;
+                text-align: center;
+                font-size: 1.5rem;
+            }
+            #pokeImg{
+                width: 70px;
+                height: 70px;
+            }
+            #enemy{
+                position: relative;
+                top:300px;
+                left:850px;
+            }
+            #player{
+                position: relative;
+                top:300px;
+                left:150px;
+            }
         </style>
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
         <script src="../common.js"></script>
@@ -41,11 +60,25 @@
     </head>
     <body style = "background-color: #eaf6f6;">
         <h1 id = "title">Wild Pokemon Battle</h1>
-        <div class = "arena">
+        <div id = "arena">
+            <table id = "fight">
+                <tr>
+                    <td>
+                        <div id = "player"></div>
+                    </td>
+                    <td>
+                        <div id = "enemy"></div>
+                    </td>
+                </tr>
+            </table>
         </div>
+        <div id = "message"></div>
         <div class = "menu" id = "menu">
             <button class = "button">Fight</button>
             <button class = "button" onclick="escape()">Run</button>
         </div>
+        <script>
+            let thing = initialize();
+        </script>
     </body>
 </html>

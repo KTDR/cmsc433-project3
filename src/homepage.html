@@ -4,6 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="homepage.css">
+
+    <script>
+        function fight(selector){
+            if(selector === 0){
+                localStorage.setItem("fightType", "0")
+            }
+             else{
+                localStorage.setItem("fightType", "1")
+            }
+        }
+        if(!localStorage.getItem("party")){
+            party = [];
+            party[0] = 4;
+            localStorage.setItem("party", JSON.stringify(party));
+            console.log("Default party established")
+        }
+
+        console.log("Initialized JS")
+    </script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
     <script src="./common.js"></script>
     <title>Pokemon Home</title>
@@ -16,8 +35,8 @@
         <button id='musicButton' style="font-size: 30px;" onclick="toggleMusic()"></button>
     </div>
     <div class="gameplay">
-        <a class="button" style="vertical-align:middle" href="ui/battle.html"><span>Next Elite 4 Fight </span></a>
-        <a class="button" style="vertical-align:middle" href="ui/battle.html"><span>Find Wild Pokemon </span></a>
+        <a class="button" style="vertical-align:middle" href="ui/battle.html" onclick="fight(1)"><span>Next Elite 4 Fight </span></a>
+        <a class="button" style="vertical-align:middle" href="ui/battle.html" onclick="fight(0)"><span>Fight Wild Pokemon </span></a>
     </div>
     <hr>
     <div class="cards">

@@ -1,4 +1,3 @@
-
 var musicLinks = {};
 musicLinks.home = "https://vgmsite.com/soundtracks/pokemon-ruby-sapphire-music-super-complete/ipdpgcaw/1-13%20Pok%C3%A9mon%20Center.mp3";
 musicLinks.battle = "https://vgmsite.com/soundtracks/pokemon-ruby-sapphire-music-super-complete/ktnxrati/1-09%20Battle%21%20Wild%20Pok%C3%A9mon.mp3";
