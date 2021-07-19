@@ -2,9 +2,12 @@
 var musicLinks = {};
 musicLinks.home = "https://vgmsite.com/soundtracks/pokemon-ruby-sapphire-music-super-complete/ipdpgcaw/1-13%20Pok%C3%A9mon%20Center.mp3";
 musicLinks.battle = "https://vgmsite.com/soundtracks/pokemon-ruby-sapphire-music-super-complete/ktnxrati/1-09%20Battle%21%20Wild%20Pok%C3%A9mon.mp3";
-var audioObj;
+var audioObj = new Audio();
+audioObj.loop = true;
+var musicEnabled;
 const url = window.location.pathname;
 const filename = url.substring(url.lastIndexOf("/") + 1);
+
 
 window.onload = function(){
     setHomeURL();
@@ -53,13 +56,32 @@ function setHomeURL() {
 }
 
 function setAudio() {
-    audioObj = new Audio();
-    if (filename.startsWith('homepage.html')) {
-        audioObj.src = musicLinks.home;
+    musicEnabled = true;
+    if (!localStorage.getItem("musicEnabled")) {
+        localStorage.setItem("musicEnabled", "1")
+        audioObj.play();
     }
-    else if (filename.startsWith("battle.html")) {
-        audioObj.src = musicLinks.battle;
+    else if (localStorage.getItem("musicEnabled") == "0") {
+        musicEnabled = false;
+        audioObj.pause();
+        document.getElementById("musicButton").innerHTML = "Enable Music";
     }
-    audioObj.play();
-    audioObj.loop = true;
+    
+    if (musicEnabled) {
+        if (filename.startsWith('homepage.html')) {
+            audioObj.src = musicLinks.home;
+        }
+        else if (filename.startsWith("battle.html")) {
+            audioObj.src = musicLinks.battle;
+        }
+        audioObj.play();
+        document.getElementById("musicButton").innerHTML = "Disable Music";
+    }
+    
+}
+
+function toggleMusic() {
+    musicEnabled = !musicEnabled;
+    localStorage.setItem('musicEnabled', musicEnabled ? "1" : "0");
+    setAudio();
 }
