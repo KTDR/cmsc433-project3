@@ -45,12 +45,12 @@ function interpretResponse(response, table)
     else if (table === "movesets")
     {
         var name = response[0].name;
-        var move1 = response[0].move1;
-        var move2 = response[0].move2;
-        var move3 = response[0].move3;
-        var move4 = response[0].move4;
-        var move5 = response[0].move5;
-        var move6 = response[0].move6;
+        var move1 = response[0].Move1;
+        var move2 = response[0].Move2;
+        var move3 = response[0].Move3;
+        var move4 = response[0].Move4;
+        var move5 = response[0].Move5;
+        var move6 = response[0].Move6;
         console.log(move2);
 
     }
