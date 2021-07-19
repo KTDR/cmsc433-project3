@@ -4,11 +4,14 @@ musicLinks.battle = "https://vgmsite.com/soundtracks/pokemon-ruby-sapphire-music
 var audioObj = new Audio();
 audioObj.loop = true;
 var musicEnabled;
+var musicButton;
 const url = window.location.pathname;
 const filename = url.substring(url.lastIndexOf("/") + 1);
 
 
+
 window.onload = function(){
+    musicButton = document.getElementById("musicButton");
     setHomeURL();
     setAudio();
 };
@@ -48,7 +51,6 @@ function getPokemonByNameAsync(name) {
 }
 
 function setHomeURL() {
-    console.log("called")
     if (document.title === "Pokemon Home") {
         window.localStorage.setItem('homeURL', window.location.href);
     }
@@ -63,7 +65,7 @@ function setAudio() {
     else if (localStorage.getItem("musicEnabled") == "0") {
         musicEnabled = false;
         audioObj.pause();
-        document.getElementById("musicButton").innerHTML = "Enable Music";
+        if (musicButton) {musicButton.innerHTML = "Enable Music"};
     }
     
     if (musicEnabled) {
@@ -74,7 +76,7 @@ function setAudio() {
             audioObj.src = musicLinks.battle;
         }
         audioObj.play();
-        document.getElementById("musicButton").innerHTML = "Disable Music";
+        if (musicButton) {musicButton.innerHTML = "Disable Music"};
     }
     
 }
