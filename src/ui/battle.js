@@ -18,8 +18,10 @@ function escape(){
         goHome()
     }
     else{
-        document.getElementById("message").innerHTML = ("Couldn't get away!");
+        
         console.log("Couldn't escape!")
+        enemyTurn();
+        document.getElementById("message").innerHTML = ("Couldn't get away!");
     }
 
 }
@@ -192,7 +194,7 @@ function enemyTurn(){
     else{
         moves = getPokemonMovesetByIdSync(enemyParty[activeEnemyIndex].id);
     }
-    console.log("Moves", moves)
+    console.log("Enemy Moves", moves)
     let moveID = Math.floor(Math.random() * 6) + 1
     switch(moveID){
         case 1:
@@ -214,7 +216,7 @@ function enemyTurn(){
             chosenMove = getPokemonMoveByIdSync(moves.Move6);
             break;
     }
-    console.log(chosenMove)
+    console.log("Enemy Chosen Move: ", chosenMove)
     let toHit = Math.floor(Math.random() * 100)
     if(toHit > chosenMove.accuracy){
         document.getElementById("message").innerHTML += "<br>Enemy attack missed!"
@@ -257,7 +259,7 @@ function playerTurn(moveID){
             chosenMove = getPokemonMoveByIdSync(moves.Move6);
             break;
     }
-    console.log(chosenMove)
+    console.log("Player move", chosenMove)
     let toHit = Math.floor(Math.random() * 100)
     if(toHit > chosenMove.accuracy){
         document.getElementById("message").innerHTML = "Your attack missed!"
