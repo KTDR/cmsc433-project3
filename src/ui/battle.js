@@ -139,13 +139,15 @@ function getEnemyParty(enemyParty, i){
     }
     else{
         displayEnemyParty(0);
+        getPartyPokemon();
     }
     
      
 }
 
 function displayEnemyParty(index){
-
+    let img = getPokemonImageByNameSync(enemyParty[index].name);
+    document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = '"+ img + "'>"
 }
 
 function catchPokemon(){
