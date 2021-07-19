@@ -108,6 +108,7 @@ function prepareEliteFight(){
     }
 
     getEnemyParty(enemyParty, 0);
+    defaultMenu();
     
 }
 
@@ -168,6 +169,9 @@ function defaultMenu(){
     let fightType = localStorage.getItem("fightType");
     if(fightType == 0){
         document.getElementById("menu").innerHTML += "<button class = 'button' onclick='escape()'>Run</button><button class = 'button' onclick='catchPokemon()'>Catch</button>"
+    }
+    else{
+        document.getElementById("menu").innerHTML += "<button class = 'button' onclick='goHome()'>Forfeit Battle</button>"
     }
 }
 
