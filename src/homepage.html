@@ -14,13 +14,34 @@
                 localStorage.setItem("fightType", "1")
             }
         }
-        if(!localStorage.getItem("party")){
-            party = [];
-            party[0] = 4;
-            localStorage.setItem("party", JSON.stringify(party));
-            console.log("Default party established")
-        }
+        if(!localStorage.getItem("party") || localStorage.getItem("party") == 0){
+            party = [4];
+            //party[0] = 4;
+            
+ 
+            var myRequest = new XMLHttpRequest();
+            var method = "POST";
+            var url = "ui/getdata.php"
+            var isAsync = true
+    
+            for(let i = 0; i < party.length; i++){
+                myRequest.open(method, url, isAsync);
 
+                myRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                myRequest.send("id=" + party[i]);
+
+                myRequest.onreadystatechange = function() {
+                    if (myRequest.readyState == 4 && myRequest.status == 200)
+                    {
+                    var response = JSON.parse(myRequest.responseText);
+                    party[i] = response[0];
+                    console.log("Num: ", i, " ", party[i]);
+                    localStorage.setItem("party", JSON.stringify(party));
+                    console.log("Default party established")
+                    }
+                }
+            }   
+        }
         console.log("Initialized JS")
     </script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
@@ -31,7 +52,6 @@
 <body>
     <div class="topnav">
         <a class="active" href="#home">Home</a>
-        <a href="#about">About</a>
         <button id='musicButton' style="font-size: 30px;" onclick="toggleMusic()"></button>
     </div>
     <div class="gameplay">

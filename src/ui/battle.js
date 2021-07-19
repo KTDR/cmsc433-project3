@@ -1,11 +1,13 @@
 var wildPokemon;
-var party = JSON.parse(localStorage.getItem("party"))
+var party = JSON.parse(localStorage.getItem("party"));
+var enemyParty;
+
 function escape(){
 
     let escaped = Math.floor(Math.random()*100)
     if(escaped > 25){
-        window.location.href = "http://localhost/proj3/cmsc433-project3/src/homepage.html#home"
         console.log("Escaped!")
+        goHome()
     }
     else{
         document.getElementById("message").innerHTML = ("Couldn't get away!");
@@ -14,10 +16,14 @@ function escape(){
 
 }
 
+function goHome(){
+    window.location.href = "http://localhost/proj3/cmsc433-project3/src/homepage.html#home"
+}
+
 async function prepareWildFight(){
     document.getElementById("arena").style.backgroundImage = "url('wild_background.png')"
     defaultMenu()
-    document.getElementById("menu").innerHTML += "<button class = 'button' onclick='catchPokemon()'>Catch</button>"
+    document.getElementById("menu").innerHTML += "<button class = 'button' onclick='escape()'>Run</button><button class = 'button' onclick='catchPokemon()'>Catch</button>"
 
     let id = Math.floor(Math.random() * 5 + 1)
 
@@ -51,28 +57,7 @@ function displayWildPokemon(id){
 }
 
 function getPartyPokemon(){
-    var myRequest = new XMLHttpRequest();
-    var method = "POST";
-    var url = "getdata.php"
-    var isAsync = true
-    
-    for(let i = 0; i < party.length; i++){
-        myRequest.open(method, url, isAsync);
-
-        myRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        myRequest.send("id=" + party[i]);
-
-        myRequest.onreadystatechange = function() {
-        if (myRequest.readyState == 4 && myRequest.status == 200)
-        {
-            var response = JSON.parse(myRequest.responseText);
-            party[i] = response[0];
-
-            displayPartyPokemon(0);
-            console.log("Num: ", i, " ", party[i]);
-        }
-    }
-    }
+   displayPartyPokemon(0)
     
 }
 function displayPartyPokemon(party_number){
@@ -86,28 +71,40 @@ function prepareEliteFight(){
     if(!eliteStage || eliteStage == 0){
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_1.png')"
         document.getElementById("title").innerHTML += "1";
+        enemyParty = [4, 4, 4]
     }
     else if(eliteStage == 1){
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_2.png')"
         document.getElementById("title").innerHTML += "2";
+        enemyParty = [4, 4, 4, 4]
     }
     else if(eliteStage == 2){
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_3.png')"
         document.getElementById("title").innerHTML += "3";
+        enemyParty = [4, 4, 4, 4, 4]
     }
     else if(eliteStage == 3){
         document.getElementById("arena").style.backgroundImage = "url('background_images/elite_4.png')"
         document.getElementById("title").innerHTML += "4";
+        enemyParty = [4, 4, 4, 4, 4, 4]
     }
     
 }
 
 function catchPokemon(){
-
+    if(wildPokemon.hp < wildPokemon.hp/4){
+        party.push(wildPokemon);
+        console.log(party);
+        document.getElementById("message").innerHTML = ("Pokemon caught!");
+        document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>"
+    }
+    else{
+        document.getElementById("message").innerHTML = ("Pokemon could not be caught! It's health is too high!");
+    }
 }
 
 function defaultMenu(){
-    document.getElementById("menu").innerHTML = "<button class = 'button' onclick='openMoveset()'>Fight</button><button class = 'button' onclick='escape()'>Run</button>"
+    document.getElementById("menu").innerHTML = "<button class = 'button' onclick='openMoveset()'>Fight</button>"
 }
 
 function enemyTurn(){
