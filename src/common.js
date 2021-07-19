@@ -5,8 +5,8 @@ var audioObj = new Audio();
 audioObj.loop = true;
 var musicEnabled;
 var musicButton;
-const url = window.location.pathname;
-const filename = url.substring(url.lastIndexOf("/") + 1);
+const myUrl = window.location.pathname;
+const filename = myUrl.substring(myUrl.lastIndexOf("/") + 1);
 
 
 
