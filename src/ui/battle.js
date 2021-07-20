@@ -6,6 +6,7 @@ var currentPokemon = [25, 196, 614, 28, 612, 242, 227, 9, 248, 539, 94, 47, 38, 
 82, 311, 312, 89, 65, 442, 609];
 var activePokemonIndex=0;
 var activeEnemyIndex=0;
+var maxHP = 50;
 
 window.onload = function() {
     displayMoveset();
@@ -15,8 +16,8 @@ function escape(){
 
     let escaped = Math.floor(Math.random()*100)
     if(escaped > 25){
-        console.log("Escaped!")
-        goHome()
+        console.log("Escaped!");
+        goHome();
     }
     else{
         
@@ -29,21 +30,21 @@ function escape(){
 
 function goHome(){
     document.getElementById("message").innerHTML = "";
-    window.location.href = "http://localhost/proj3/cmsc433-project3/src/homepage.html#home"
+    window.location.href = "http://localhost/src/homepage.html";
 }
 
 function prepareWildFight(){
-    document.getElementById("arena").style.backgroundImage = "url('wild_background.png')"
-    defaultMenu()
+    document.getElementById("arena").style.backgroundImage = "url('wild_background.png')";
+    defaultMenu();
 
-    let id = Math.floor(Math.random() * currentPokemon.length)
+    let id = Math.floor(Math.random() * currentPokemon.length);
     id = currentPokemon[id];
 
     /*cannot be it's own function, it messes up. No clue why*/
     var myRequest = new XMLHttpRequest();
     var method = "POST";
     var url = "getdata.php"
-    var isAsync = true
+    var isAsync = true;
     
     myRequest.open(method, url, isAsync);
 
@@ -55,7 +56,7 @@ function prepareWildFight(){
         {
             var response = JSON.parse(myRequest.responseText);
             wildPokemon = response[0];
-            var maxHP = wildPokemon.hp
+            maxHP = wildPokemon.hp;
             displayWildPokemon(id);
             getPartyPokemon();
         }
@@ -67,7 +68,7 @@ function prepareWildFight(){
 
 function displayWildPokemon(id){
     let img = getPokemonImageByNameSync(wildPokemon.name);
-    document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = '"+ img + "'><div id = 'enemyhp'> Health: "+wildPokemon.hp+"<div>"
+    document.getElementById("enemy").innerHTML="<img id = 'pokeImg' src = '"+ img + "'><div id = 'enemyhp'> Health: "+wildPokemon.hp+"<div>";
 }
 
 function getPartyPokemon(){
@@ -75,9 +76,9 @@ function getPartyPokemon(){
     
 }
 function displayPartyPokemon(party_number){
-    console.log( party[party_number])
+
     let img = getPokemonImageByNameSync(party[party_number].name);
-    document.getElementById("player").innerHTML="<img id = 'pokeImg' src = '"+ img + "'><div id = 'hp'> Health: "+party[party_number].hp+"<div>"
+    document.getElementById("player").innerHTML="<img id = 'pokeImg' src = '"+ img + "'><div id = 'hp'> Health: "+party[party_number].hp+"<div>";
 }
 
 function prepareEliteFight(){
@@ -240,17 +241,17 @@ function enemyTurn(){
             break;
     }
     console.log("Enemy Chosen Move: ", chosenMove)
-    let toHit = Math.floor(Math.random() * 100)
+    let toHit = Math.floor(Math.random() * 100);
     if(toHit > chosenMove.accuracy){
-        document.getElementById("message").innerHTML += "<br>Enemy attack missed!"
+        document.getElementById("message").innerHTML += "<br>Enemy attack missed!";
     }
     else{
-        damage = Math.floor(chosenMove.power / 4)
+        damage = Math.floor(chosenMove.power / 4);
         multiplier = findMoveEffectiveness(chosenMove.type, party[activePokemonIndex].type1, party[activePokemonIndex].type2);
         damage = damage*multiplier;
         party[activePokemonIndex].hp -= damage;
-        document.getElementById("hp").innerHTML = "Health: " + party[activePokemonIndex].hp
-        console.log("HP ", party[activePokemonIndex].hp)
+        document.getElementById("hp").innerHTML = "Health: " + party[activePokemonIndex].hp;
+        console.log("HP ", party[activePokemonIndex].hp);
         if(party[activePokemonIndex].hp <= 0){
             for(let i = 0; i < party.length; i++){
                 let num = Number(party[i].hp)
@@ -295,23 +296,23 @@ function playerTurn(moveID){
             break;
     }
     console.log("Player move", chosenMove)
-    let toHit = Math.floor(Math.random() * 100)
+    let toHit = Math.floor(Math.random() * 100);
     if(toHit > chosenMove.accuracy){
-        document.getElementById("message").innerHTML = "Your attack missed!"
+        document.getElementById("message").innerHTML = "Your attack missed!";
         defaultMenu();
         enemyTurn();
     }
     else{
-        damage = Math.floor(chosenMove.power / 4)
+        damage = Math.floor(chosenMove.power / 4);
         multiplier = findMoveEffectiveness(chosenMove.type, wildPokemon.type1, wildPokemon.type2);
         damage = damage*multiplier;
         wildPokemon.hp -= damage;
-        document.getElementById("enemyhp").innerHTML = "Health: " + wildPokemon.hp
+        document.getElementById("enemyhp").innerHTML = "Health: " + wildPokemon.hp;
         if(wildPokemon.hp <= 0){
             victory();
         }
     }
-    document.getElementById("message").innerHTML = ""
+    document.getElementById("message").innerHTML = "";
     defaultMenu();
     enemyTurn();
 }
@@ -424,57 +425,57 @@ function findMoveEffectiveness(atkType, pokeType1, pokeType2)
     
     if (noDamage.includes(pokeType1))
     {
-    	multiplier = -1;
+    	multiplier = 0;
     }
     
     if (noDamage.includes(pokeType2))
     {
-    	multiplier = -1;
+    	multiplier = 0;
     }
     return multiplier;
 
 }
 function openMoveset(){
     document.getElementById("message").innerHTML = "Select a Move";
-    document.getElementById("menu").innerHTML = "<button id = 'move1' class = 'button' onclick='playerTurn(1)'></button>"
-    document.getElementById("menu").innerHTML += "<button id = 'move2' class = 'button' onclick='playerTurn(2)'></button>"
-    document.getElementById("menu").innerHTML += "<button id = 'move3' class = 'button' onclick='playerTurn(3)'></button>"
-    document.getElementById("menu").innerHTML += "<button id = 'move4' class = 'button' onclick='playerTurn(4)'></button>"
+    document.getElementById("menu").innerHTML = "<button id = 'move1' class = 'button' onclick='playerTurn(1)'></button>";
+    document.getElementById("menu").innerHTML += "<button id = 'move2' class = 'button' onclick='playerTurn(2)'></button>";
+    document.getElementById("menu").innerHTML += "<button id = 'move3' class = 'button' onclick='playerTurn(3)'></button>";
+    document.getElementById("menu").innerHTML += "<button id = 'move4' class = 'button' onclick='playerTurn(4)'></button>";
     // document.getElementById("menu").innerHTML += "<button id = 'move5' class = 'button' onclick='playerTurn(5)'></button>"
     // document.getElementById("menu").innerHTML += "<button id = 'move6' class = 'button' onclick='playerTurn(6)'></button>"
-    displayMoveset()
-    document.getElementById("menu").innerHTML += "<button id = 'return' class = 'button' onclick='defaultMenu()'> Go back</button>"
+    displayMoveset();
+    document.getElementById("menu").innerHTML += "<button id = 'return' class = 'button' onclick='defaultMenu()'> Go back</button>";
 }
 
 function victory(){
     let fightType = localStorage.getItem("fightType");
     if(fightType == 0){
         document.getElementById("message").innerHTML = "You won!";
-        document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>"
+        document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>";
     }
     else{
         let eliteStage = localStorage.get("eliteStage");
         eliteStage ++;
-        localStorage.setItem("eliteStage", eliteStage)
+        localStorage.setItem("eliteStage", eliteStage);
         document.getElementById("message").innerHTML = "You won!";
         if(eliteStage > 3){
-            window.location.href = "http://localhost/proj3/cmsc433-project3/src/victory.html"
+            window.location.href = "http://localhost/src/victory.html";
         }
     }
 
 }
 function defeat(){
     document.getElementById("message").innerHTML = "You Lost!";
-    document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>"
+    document.getElementById("menu").innerHTML = "<button class = 'button' onclick='goHome()'>Return Home</button>";
 }
 
 function initialize(){
     let fightType = localStorage.getItem("fightType");
     if(fightType == 0){
-        prepareWildFight()
+        prepareWildFight();
     }
     else{
-        prepareEliteFight()
+        prepareEliteFight();
     }
 
     return true;
